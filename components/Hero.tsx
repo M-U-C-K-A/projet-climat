@@ -1,6 +1,8 @@
+"use client"
 import { MoveRight, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Globe from "@/components/magicui/globe";
 
 export const Hero = () => (
   <div className="w-full">
@@ -31,7 +33,7 @@ export const Hero = () => (
           </div>
         </div>
         <div className="bg-muted rounded-md aspect-square">
-
+          <Globe />
         </div>
       </div>
     </div>

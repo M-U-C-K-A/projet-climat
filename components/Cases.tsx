@@ -16,6 +16,7 @@ const images = [
   { src: "/idx.svg", alt: "google-idx Logo" },
   { src: "/buildship.svg", alt: "google-idx Logo" },
   { src: "/reddit.svg", alt: "google-idx Logo" },
+  { src: "/bard.svg", alt: "google-idx Logo" },
 ];
 
 export const Case = () => {
