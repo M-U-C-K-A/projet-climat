@@ -9,15 +9,13 @@ import {
 } from "@/components/ui/carousel";
 
 const images = [
-  { src: "/gmail.svg", alt: "Gmail Logo" },
-  { src: "/arc_browser.svg", alt: "Arc Logo" },
+  { src: "/WWF.svg", alt: "WWF" },
+  { src: "/350.svg", alt: "350" },
   { src: "/sourcegraph.svg", alt: "Sourcegraph Logo" },
-  { src: "/react.svg", alt: "React Logo" },
-  { src: "/google-palm.svg", alt: "google palm" },
-  { src: "/nextjs_icon_dark.svg", alt: "Nextjs dark Logo" },
-  { src: "/postgresql.svg", alt: "postgres Logo" },
-  { src: "/vscode.svg", alt: "vscode Logo" },
-  { src: "/google-idx.svg", alt: "google-idx Logo" },
+  { src: "/palm.svg", alt: "google palm" },
+  { src: "/idx.svg", alt: "google-idx Logo" },
+  { src: "/buildship.svg", alt: "google-idx Logo" },
+  { src: "/reddit.svg", alt: "google-idx Logo" },
 ];
 
 export const Case = () => {
@@ -41,7 +39,7 @@ export const Case = () => {
   }, [api, current]);
 
   return (
-    <div className="w-full py-20 lg:py-40">
+    <div className="w-full">
       <div className="container mx-auto">
         <div className="flex flex-col  gap-10">
           <h2 className="text-xl md:text-3xl tracking-tighter lg:max-w-xl font-regular text-left">
@@ -52,7 +50,7 @@ export const Case = () => {
               {images.map((image, index) => (
                 <CarouselItem className="basis-1/4 lg:basis-1/6" key={index}>
                   <div className="flex rounded-md aspect-square bg-muted items-center justify-center p-6">
-                    <img src={image.src} alt={image.alt} className="max-h-20"/>
+                    <img src={image.src} alt={image.alt} className="h-20"/>
                   </div>
                 </CarouselItem>
               ))}
