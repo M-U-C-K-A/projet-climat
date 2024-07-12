@@ -21,14 +21,17 @@
     "embla-carousel-react": "^8.1.6",
     "lucide-react": "^0.403.0",
     "mdast-util-from-markdown": "^2.0.1",
+    "mdast-util-toc": "^7.1.0",
     "next": "14.2.4",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
     "react-spring": "^9.7.3",
     "recharts": "^2.12.7",
+    "remark": "^15.0.1",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",

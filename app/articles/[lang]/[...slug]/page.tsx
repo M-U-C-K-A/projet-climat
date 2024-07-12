@@ -1,9 +1,10 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 
-import { getTableOfContents } from "@/lib/toc";
+import { getTableOfContents, TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { DashboardTableOfContents } from "@/components/toc";
 import { badgeVariants } from "@/components/ui/badge";
@@ -17,44 +18,43 @@ interface DocPageProps {
   };
 }
 
-async function getDocFromParams({ params }: DocPageProps) {
-  const { lang, slug } = params;
+const getDocFromParams = ({ lang, slug }: DocPageProps["params"]) => {
   const slugPath = slug.join("-");
-
   const langArticles = articles[lang as keyof typeof articles];
-  const doc = langArticles?.[slugPath as keyof typeof langArticles] || null;
+  return langArticles?.[slugPath as keyof typeof langArticles] || null;
+};
 
-  if (!doc) {
-    return null;
-  }
+export default function DocPage({ params }: DocPageProps) {
+  const [doc, setDoc] = useState<any>(null);
+  const [toc, setToc] = useState<TableOfContents | null>(null);
 
-  return doc;
-}
-
-export async function generateStaticParams(): Promise<DocPageProps["params"][]> {
-  const allDocs = Object.keys(articles).flatMap((lang) => {
-    return Object.keys(articles[lang]).map((slug) => ({
-      lang,
-      slug: slug.split("-"),
-    }));
-  });
-
-  return allDocs;
-}
-
-export default async function DocPage({ params }: DocPageProps) {
-  const doc = await getDocFromParams({ params });
-
-  if (!doc) {
-    return {
-      notFound: true,
+  useEffect(() => {
+    const fetchDoc = async () => {
+      const fetchedDoc = getDocFromParams(params);
+      if (fetchedDoc) {
+        setDoc(fetchedDoc);
+        const toc = await getTableOfContents(fetchedDoc.body);
+        setToc(toc);
+      }
     };
-  }
+    fetchDoc();
+  }, [params]);
 
-  const toc = await getTableOfContents(doc.body);
+  if (!doc) {
+    return <div className="flex items-center justify-center gap-4 m-auto w-full">
+      <div className="mt-20">
+        <h1 className="text-balance max-w-md text-6xl">Sorry! This article isn't available</h1>
+        <p>The page you were looking for couldn't be found</p>
+        <p className="text-muted-foreground mt-10">Go back to the <a href="/" className="text-destructive">home page</a> or vis our <a href="/" className="text-destructive">Help Center</a>.</p>
+      </div>
+      <div className="max-w-xl">
+    <img src="/not-found.gif" alt="" />
+      </div>
+      </div>;
+  }
 
   return (
-    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+    <div className="relative prose w-full min-w-full py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
       <div className="mx-auto w-full min-w-0">
         <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
           <div className="truncate">Docs</div>
@@ -66,9 +66,7 @@ export default async function DocPage({ params }: DocPageProps) {
             {doc.title}
           </h1>
           {doc.description && (
-            <p className="text-base text-muted-foreground">
-              {doc.description}
-            </p>
+            <p className="text-base text-muted-foreground">{doc.description}</p>
           )}
         </div>
         {doc.links ? (
@@ -112,6 +110,6 @@ export default async function DocPage({ params }: DocPageProps) {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
