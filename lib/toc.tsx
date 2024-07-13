@@ -1,68 +1,67 @@
-import { toc } from "mdast-util-toc";
-import { remark } from "remark";
-import { visit } from "unist-util-visit";
-import { Node } from "unist";
-
-const textTypes = ["text", "emphasis", "strong", "inlineCode"];
-
-function flattenNode(node: Node): string {
-  const p: string[] = [];
-  visit(node, (node: any) => {
-    if (!textTypes.includes(node.type)) return;
-    p.push(node.value);
-  });
-  return p.join("");
+// lib/toc.ts
+export interface TableOfContents {
+  items: Item[];
 }
 
-interface Item {
-  title: string;
-  url: string;
+export interface Item {
+  href: string;
+  name: string;
+  level: number;
   items?: Item[];
 }
 
-interface Items {
-  items?: Item[];
-}
+export async function getTableOfContents(body: string): Promise<TableOfContents> {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(body, 'text/html');
+  const headers = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  const items: Item[] = [];
 
-function getItems(node: any, current: Items = {}): Items {
-  if (!node) return {};
+  headers.forEach(header => {
+    const level = parseInt(header.tagName[1]); // Get the level from tag name (e.g., 'h2' -> 2)
+    const id = header.id;
+    const name = header.textContent || '';
 
-  if (node.type === "paragraph") {
-    visit(node, (item: any) => {
-      if (item.type === "link") {
-        current.url = item.url;
-        current.title = flattenNode(node);
-      }
-      if (item.type === "text") {
-        current.title = flattenNode(node);
-      }
-    });
-    return current;
-  }
-
-  if (node.type === "list") {
-    current.items = node.children.map((i: any) => getItems(i, {}));
-    return current;
-  } else if (node.type === "listItem") {
-    const heading = getItems(node.children[0], {});
-    if (node.children.length > 1) {
-      getItems(node.children[1], heading);
+    if (id) {
+      items.push({
+        href: `#${id}`,
+        name,
+        level,
+      });
     }
-    return heading;
-  }
+  });
 
-  return {};
+  return { items: nestItems(items) };
 }
 
-const getToc = () => (node: Node, file: any) => {
-  const table = toc(node);
-  const items = getItems(table.map, {});
-  file.data = items;
-};
+function nestItems(items: Item[]): Item[] {
+  const nestedItems: Item[] = [];
+  const stack: { item: Item; children: Item[] }[] = [];
 
-export type TableOfContents = Items;
+  items.forEach(item => {
+    const level = item.level;
 
-export async function getTableOfContents(content: string): Promise<TableOfContents> {
-  const result = await remark().use(getToc).process(content);
-  return result.data;
+    while (stack.length && stack[stack.length - 1].item.level >= level) {
+      const { item: parentItem, children } = stack.pop()!;
+      parentItem.items = children;
+      if (stack.length) {
+        stack[stack.length - 1].children.push(parentItem);
+      } else {
+        nestedItems.push(parentItem);
+      }
+    }
+
+    stack.push({ item, children: [] });
+  });
+
+  while (stack.length) {
+    const { item, children } = stack.pop()!;
+    item.items = children;
+    if (stack.length) {
+      stack[stack.length - 1].children.push(item);
+    } else {
+      nestedItems.push(item);
+    }
+  }
+
+  return nestedItems;
 }

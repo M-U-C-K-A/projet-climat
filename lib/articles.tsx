@@ -1,13 +1,20 @@
-interface ArticleLinks {
-  doc: string;
-  api: string;
-}
 
 interface Article {
   title: string;
   description: string;
+  image: string; // Nouvelle propriété pour l'image
+  date_created: string; // Nouvelle propriété pour la date de création en timestamp
+  views: number; // Nouvelle propriété pour le nombre de vues
+  author: { // Nouvelle propriété pour l'auteur
+    name: string;
+    email: string;
+  };
+  tags: string[]; // Nouvelle propriété pour les tags
   body: string;
-  links: ArticleLinks;
+  links: {
+    doc: string;
+    api: string;
+  };
 }
 
 interface Articles {
@@ -21,6 +28,14 @@ export const articles: Articles = {
     "melting-of-ice-caps": {
       title: "Melting of Ice Caps",
       description: "The effects and consequences of ice cap melting.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Melting of Ice Caps</h1>
         <h2>Data on Ice Melting</h2>
@@ -31,6 +46,7 @@ export const articles: Articles = {
         <p>Climate change, driven by increased greenhouse gas emissions, is the primary factor. Human activities such as deforestation and pollution also play a role.</p>
         <h2>Strategies to Mitigate Ice Melting</h2>
         <p>Mitigation strategies include reducing carbon emissions, enhancing renewable energy adoption, and protecting natural carbon sinks like forests.</p>
+        <Headers/>
       `,
       links: {
         doc: "https://example.com/en/melting-of-ice-caps-doc",
@@ -40,6 +56,14 @@ export const articles: Articles = {
     "loss-of-biodiversity": {
       title: "Loss of Biodiversity",
       description: "The global impact of biodiversity loss.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces","trigonometry", "Changements Climatiques"],
       body: `
         <h1>Loss of Biodiversity</h1>
         <h2>Global Impact of Biodiversity Loss</h2>
@@ -61,6 +85,14 @@ export const articles: Articles = {
     "world-hunger": {
       title: "World Hunger",
       description: "Global food security and climate change.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>World Hunger</h1>
         <h2>Global Food Security and Climate Change</h2>
@@ -82,6 +114,14 @@ export const articles: Articles = {
     "climate-types": {
       title: "Climate Types",
       description: "Classification and adaptation to climate change.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Climate Types</h1>
         <h2>Characteristics of Different Climate Types</h2>
@@ -99,6 +139,14 @@ export const articles: Articles = {
     "co2-emissions": {
       title: "CO₂ Emissions",
       description: "Emergence of new actors in CO₂ emissions.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>CO₂ Emissions</h1>
         <h2>Global Trends in CO₂ Emissions</h2>
@@ -118,6 +166,14 @@ export const articles: Articles = {
     "drought-in-africa": {
       title: "Drought in Africa",
       description: "Droughts and climate resilience in Africa.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Drought in Africa</h1>
         <h2>Prevalence of Droughts</h2>
@@ -139,6 +195,14 @@ export const articles: Articles = {
     "fonte-des-glaces": {
       title: "Fonte des Glaces",
       description: "Les effets et conséquences de la fonte des glaces.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Fonte des Glaces</h1>
         <h2>Données sur la Fonte des Glaces</h2>
@@ -158,6 +222,14 @@ export const articles: Articles = {
     "perte-de-biodiversite": {
       title: "Perte de Biodiversité",
       description: "L'impact mondial de la perte de biodiversité.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Perte de Biodiversité</h1>
         <h2>Impact Mondial de la Perte de Biodiversité</h2>
@@ -179,6 +251,14 @@ export const articles: Articles = {
     "faim-dans-le-monde": {
       title: "Faim dans le Monde",
       description: "Sécurité alimentaire mondiale et changement climatique.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Faim dans le Monde</h1>
         <h2>Sécurité Alimentaire Mondiale et Changement Climatique</h2>
@@ -200,6 +280,14 @@ export const articles: Articles = {
     "types-de-climat": {
       title: "Types de Climat",
       description: "Classification et adaptation au changement climatique.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Types de Climat</h1>
         <h2>Caractéristiques des Différents Types de Climat</h2>
@@ -217,6 +305,14 @@ export const articles: Articles = {
     "emissions-de-co2": {
       title: "Émissions de CO₂",
       description: "Émergence de nouveaux acteurs dans les émissions de CO₂.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Émissions de CO₂</h1>
         <h2>Tendances Globales des Émissions de CO₂</h2>
@@ -236,6 +332,14 @@ export const articles: Articles = {
     "secheresse-en-afrique": {
       title: "Sécheresse en Afrique",
       description: "Sécheresses et résilience climatique en Afrique.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Sécheresse en Afrique</h1>
         <h2>Prévalence des Sécheresses</h2>
@@ -257,6 +361,14 @@ export const articles: Articles = {
     "derretimiento-de-caps-de-hielo": {
       title: "Derretimiento de Capas de Hielo",
       description: "Los efectos y consecuencias del derretimiento de las capas de hielo.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Derretimiento de Capas de Hielo</h1>
         <h2>Datos sobre el Derretimiento de Hielo</h2>
@@ -276,6 +388,14 @@ export const articles: Articles = {
     "perdida-de-biodiversidad": {
       title: "Pérdida de Biodiversidad",
       description: "El impacto global de la pérdida de biodiversidad.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Pérdida de Biodiversidad</h1>
         <h2>Impacto Global de la Pérdida de Biodiversidad</h2>
@@ -297,6 +417,14 @@ export const articles: Articles = {
     "hambre-en-el-mundo": {
       title: "Hambre en el Mundo",
       description: "Seguridad alimentaria global y cambio climático.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Hambre en el Mundo</h1>
         <h2>Seguridad Alimentaria Global y Cambio Climático</h2>
@@ -318,6 +446,14 @@ export const articles: Articles = {
     "tipos-de-clima": {
       title: "Tipos de Clima",
       description: "Clasificación y adaptación al cambio climático.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Tipos de Clima</h1>
         <h2>Características de los Diferentes Tipos de Clima</h2>
@@ -335,6 +471,14 @@ export const articles: Articles = {
     "emisiones-de-co2": {
       title: "Emisiones de CO₂",
       description: "Emergencia de nuevos actores en las emisiones de CO₂.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Emisiones de CO₂</h1>
         <h2>Tendencias Globales en las Emisiones de CO₂</h2>
@@ -354,6 +498,14 @@ export const articles: Articles = {
     "sequía-en-africa": {
       title: "Sequía en África",
       description: "Sequías y resiliencia climática en África.",
+      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      date_created: "1710384000", // Timestamp for July 13, 2024
+      views: 10234,
+      author: {
+        name: "Alice Johnson",
+        email: "alice.johnson@example.com"
+      },
+      tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
       body: `
         <h1>Sequía en África</h1>
         <h2>Prevalencia de Sequías</h2>

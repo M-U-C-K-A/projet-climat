@@ -1,15 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 
 import { getTableOfContents, TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
-import { DashboardTableOfContents } from "@/components/toc";
 import { badgeVariants } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { articles } from "@/lib/articles"; // Import des articles
+import { Sidebar } from "@/components/Sidebar";
 
 interface DocPageProps {
   params: {
@@ -31,9 +29,11 @@ export default function DocPage({ params }: DocPageProps) {
   useEffect(() => {
     const fetchDoc = async () => {
       const fetchedDoc = getDocFromParams(params);
+      console.log('Fetched Document:', fetchedDoc); // Log document data
       if (fetchedDoc) {
         setDoc(fetchedDoc);
         const toc = await getTableOfContents(fetchedDoc.body);
+        console.log('Table of Contents:', toc); // Log TOC data
         setToc(toc);
       }
     };
@@ -41,20 +41,22 @@ export default function DocPage({ params }: DocPageProps) {
   }, [params]);
 
   if (!doc) {
-    return <div className="flex items-center justify-center gap-4 m-auto w-full">
-      <div className="mt-20">
-        <h1 className="text-balance max-w-md text-6xl">Sorry! This article isn't available</h1>
-        <p>The page you were looking for couldn't be found</p>
-        <p className="text-muted-foreground mt-10">Go back to the <a href="/" className="text-destructive">home page</a> or vis our <a href="/" className="text-destructive">Help Center</a>.</p>
+    return (
+      <div className="flex items-center justify-center gap-4 m-auto w-full">
+        <div className="mt-20">
+          <h1 className="text-balance max-w-md text-6xl">Sorry! This article isn't available</h1>
+          <p>The page you were looking for couldn't be found</p>
+          <p className="text-muted-foreground mt-10">Go back to the <a href="/" className="text-destructive">home page</a> or visit our <a href="/" className="text-destructive">Help Center</a>.</p>
+        </div>
+        <div className="max-w-xl">
+          <img src="/not-found.gif" alt="" />
+        </div>
       </div>
-      <div className="max-w-xl">
-    <img src="/not-found.gif" alt="" />
-      </div>
-      </div>;
+    );
   }
 
   return (
-    <div className="relative prose w-full min-w-full py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+    <div className="relative prose w-full min-w-full py-6 lg:gap-10 lg:py-8 flex">
       <div className="mx-auto w-full min-w-0">
         <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
           <div className="truncate">Docs</div>
@@ -99,16 +101,14 @@ export default function DocPage({ params }: DocPageProps) {
           <div dangerouslySetInnerHTML={{ __html: doc.body }} />
         </div>
       </div>
-      {toc && (
+      {toc && toc.items && toc.items.length > 0 ? (
         <div className="hidden text-sm xl:block">
           <div className="sticky top-16 -mt-10 pt-4">
-            <ScrollArea className="pb-10">
-              <div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] py-12">
-                <DashboardTableOfContents toc={toc} />
-              </div>
-            </ScrollArea>
+              <Sidebar items={toc.items} />
           </div>
         </div>
+      ) : (
+        <div>No Table of Contents available</div> // Log when TOC is not available
       )}
     </div>
   );
