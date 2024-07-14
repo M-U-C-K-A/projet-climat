@@ -5,13 +5,22 @@ import { articles } from '@/lib/articles';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable"
+} from "@/components/ui/resizable";
 import { Header } from '@/components/Header';
-
 
 interface ArticleLinks {
   doc: string;
@@ -42,7 +51,7 @@ const formatDate = (timestamp: string): string => {
 };
 
 const ArticlesPage = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -58,86 +67,112 @@ const ArticlesPage = () => {
     );
   };
 
+  const handleReset = () => {
+    setSelectedLanguage('all');
+    setSelectedTags([]);
+    setSearchTerm('');
+  };
+
   const filteredArticles = allArticles.filter(article => {
     const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => article.tags.includes(tag));
     const matchesSearchTerm = article.title.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesTags && matchesSearchTerm;
   });
 
+  const filteredArticlesCount = filteredArticles.length;
+
   return (
     <>
-    
-    <Header/>
-    <ResizablePanelGroup direction="horizontal" className="min-h-screen gap-4">
-
-      <ResizablePanel defaultSize={25}>
-
-        <div className="flex flex-col gap-4 m-5 mt-24">
-          <Input
-            type="text"
-            placeholder="Search articles..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <select
-            className="border p-2 rounded"
-            value={selectedLanguage}
-            onChange={(e) => setSelectedLanguage(e.target.value)}
-          >
-            <option value="en">English</option>
-            <option value="fr">Français</option>
-            <option value="es">Español</option>
-          </select>
-        <div className="flex gap-2 flex-wrap">
-          {tags.map((tag, index) => (
-            <Badge
-              key={index}
-              onClick={() => handleTagClick(tag)}
-              variant={selectedTags.includes(tag) ? 'secondary' : 'default'}
+      <Header />
+      <ResizablePanelGroup direction="horizontal" className="min-h-screen gap-4">
+        <ResizablePanel defaultSize={22}>
+          <div className="flex flex-col gap-4 m-5 mt-24 sticky max-w-sm mx-auto">
+            <Input
+              type="text"
+              placeholder="Search articles..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Select value={selectedLanguage} onValueChange={(value) => setSelectedLanguage(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Language</SelectLabel>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="fr">Français</SelectItem>
+                  <SelectItem value="es">Español</SelectItem>
+                  <SelectItem value="ru">россия</SelectItem>
+                  <SelectItem value="ch">中国人</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Button
+              onClick={handleReset}
             >
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        </div>
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={75} minSize={65}>
-        <div className="container mx-auto">
-          <div className="flex gap-2 flex-col my-5">
-            <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular text-left">
-              Our article !
-            </h2>
-            <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground  text-left">
-              List of our articles about biodiversity and sociological reseach in the United States
-            </p>
-          </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredArticles.map((article, index) => (
-                <div className="flex flex-col gap-2 border border-card-background rounded-md p-4" key={index}>
-                  <div className="bg-muted rounded-md aspect-video mb-2">
-                    <img src={article.image} alt="" className='aspect-video object-cover' />
-                  </div>
-                  <div className='w-full flex justify-between'>
-                    <h3 className="text-xl tracking-tight">{article.title}</h3>
-                    <Badge>{formatDate(article.date_created)}</Badge>
-                  </div>
-                  <p className="text-muted-foreground text-base">
-                    {article.description}
-                  </p>
-                  <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>{article.author.name}</span>
-                    <span>{article.views} views</span>
-                  </div>
-                </div>
+              Reset Settings
+            </Button>
+            <div className="flex gap-2 flex-wrap">
+              {tags.map((tag, index) => (
+                <Badge
+                  className='cursor-pointer'
+                  key={index}
+                  onClick={() => handleTagClick(tag)}
+                  variant={selectedTags.includes(tag) ? 'secondary' : 'default'}
+                >
+                  {tag}
+                </Badge>
               ))}
             </div>
           </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
-
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel defaultSize={78} minSize={65}>
+          <div className="container mx-auto">
+            <div className="flex gap-2 flex-col mt-20">
+              <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular text-left">
+                Our articles!
+              </h2>
+              <div className='flex justify-between'>
+                <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground text-left">
+                  List of our articles about biodiversity and sociological research in the United States
+                </p>
+                <p>
+                  {filteredArticlesCount} {filteredArticlesCount === 1 ? 'article found' : 'articles found'}
+                </p>
+              </div>
+            </div>
+            {filteredArticlesCount === 0 ? (
+              <p className="text-center text-lg mt-4">No articles found.</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredArticles.map((article, index) => (
+                  <div className="flex flex-col gap-2 border border-card-background rounded-md p-4" key={index}>
+                    <div className="bg-muted rounded-md aspect-video mb-2">
+                      <img src={article.image} alt="" className='aspect-video object-cover' />
+                    </div>
+                    <div className='w-full flex justify-between'>
+                      <h3 className="text-xl tracking-tight">{article.title}</h3>
+                      <Badge>{formatDate(article.date_created)}</Badge>
+                    </div>
+                    <p className="text-muted-foreground text-base">
+                      {article.description}
+                    </p>
+                    <div className="flex justify-between text-sm text-muted-foreground">
+                      <span>{article.author.name}</span>
+                      <span>{article.views} views</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </>
-    );
+  );
 };
 
 export default ArticlesPage;

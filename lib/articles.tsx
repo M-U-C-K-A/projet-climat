@@ -56,7 +56,7 @@ export const articles: Articles = {
     "loss-of-biodiversity": {
       title: "Loss of Biodiversity",
       description: "The global impact of biodiversity loss.",
-      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1720440906281-b4367a242a86?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       date_created: "1710384000", // Timestamp for July 13, 2024
       views: 10234,
       author: {
@@ -85,7 +85,7 @@ export const articles: Articles = {
     "world-hunger": {
       title: "World Hunger",
       description: "Global food security and climate change.",
-      image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1719742882445-8a22be4a2653?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       date_created: "1710384000", // Timestamp for July 13, 2024
       views: 10234,
       author: {
