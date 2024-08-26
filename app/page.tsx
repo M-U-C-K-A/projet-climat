@@ -12,8 +12,8 @@ export default function Home() {
       <Header />
       <main className="flex dark:bg-red-foreground min-h-screen flex-col items-center justify-between gap-10 lg:gap-20 md:my-20 lg:my-40">
         <Hero />
-        <Case />
         <Article/>
+        <Case />
         <CTA/>
         <FAQ/>
       </main>

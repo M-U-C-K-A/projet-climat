@@ -1,19 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import createGlobe, { COBEOptions } from "cobe";
 import { useSpring } from "react-spring";
-
 import { cn } from "@/lib/utils";
 
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
-  onRender: () => { },
+  onRender: () => {},
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
-  dark: 0,
+  dark: 0, // Initial dark value, will be updated dynamically
   diffuse: 0.4,
   mapSamples: 16000,
   mapBrightness: 1.2,
@@ -21,16 +20,9 @@ const GLOBE_CONFIG: COBEOptions = {
   markerColor: [251 / 255, 100 / 255, 21 / 255],
   glowColor: [1, 1, 1],
   markers: [
-    { location: [14.5995, 120.9842], size: 0.03 },
-    { location: [19.076, 72.8777], size: 0.1 },
-    { location: [23.8103, 90.4125], size: 0.05 },
-    { location: [30.0444, 31.2357], size: 0.07 },
-    { location: [39.9042, 116.4074], size: 0.08 },
-    { location: [-23.5505, -46.6333], size: 0.1 },
-    { location: [19.4326, -99.1332], size: 0.1 },
-    { location: [40.7128, -74.006], size: 0.1 },
-    { location: [34.6937, 135.5022], size: 0.05 },
-    { location: [41.0082, 28.9784], size: 0.06 },
+    { location: [-75.2577165,2.842170943040401e-14], size: 0.1 },
+    { location: [20, 40], size: 0.1 },
+    { location: [80, -74], size: 0.1 },
   ],
 };
 
@@ -55,6 +47,7 @@ export default function Globe({
       precision: 0.001,
     },
   }));
+  const [darkMode, setDarkMode] = useState(0);
 
   const updatePointerInteraction = (value: any) => {
     pointerInteracting.current = value;
@@ -76,7 +69,7 @@ export default function Globe({
       state.width = width * 2;
       state.height = width * 2;
     },
-    [pointerInteracting, phi, r],
+    [pointerInteracting, phi, r]
   );
 
   const onResize = () => {
@@ -85,12 +78,18 @@ export default function Globe({
     }
   };
 
+  const handleThemeChange = () => {
+    const isDark = document.documentElement.classList.contains("dark");
+    setDarkMode(isDark ? 1 : 0);
+  };
+
   useEffect(() => {
     window.addEventListener("resize", onResize);
     onResize();
 
     const globe = createGlobe(canvasRef.current!, {
       ...config,
+      dark: darkMode,
       width: width * 2,
       height: width * 2,
       onRender,
@@ -98,6 +97,16 @@ export default function Globe({
 
     setTimeout(() => (canvasRef.current!.style.opacity = "1"));
     return () => globe.destroy();
+  }, [darkMode]);
+
+  useEffect(() => {
+    handleThemeChange(); // Set initial theme
+    const observer = new MutationObserver(handleThemeChange);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
   }, []);
 
   return (
