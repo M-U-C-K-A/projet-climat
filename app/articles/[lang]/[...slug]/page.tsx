@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 import { articles } from "@/lib/articles"; // Import des articles
 import { Sidebar } from "@/components/Sidebar";
+import { Link2 } from "lucide-react";
 
 interface DocPageProps {
   params: {
@@ -68,7 +69,7 @@ export default function DocPage({ params }: DocPageProps) {
   const BodyComponent = doc.BodyComponent;
 
   return (
-    <div className="relative prose w-full min-w-full py-6 lg:gap-10 lg:py-8 flex">
+    <div className="relative dark:prose-invert prose w-full min-w-full py-6 lg:gap-10 lg:py-8 flex">
       <div className="mx-auto w-full min-w-0">
         <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
           <div className="truncate"><Link href="/articles">Articles</Link></div>
@@ -92,7 +93,7 @@ export default function DocPage({ params }: DocPageProps) {
                 rel="noreferrer"
                 className={cn(badgeVariants({ variant: "secondary" }), "gap-1")}
               >
-                Docs
+                Source
                 <ExternalLinkIcon className="h-3 w-3" />
               </Link>
             )}
@@ -103,8 +104,8 @@ export default function DocPage({ params }: DocPageProps) {
                 rel="noreferrer"
                 className={cn(badgeVariants({ variant: "secondary" }), "gap-1")}
               >
-                API Reference
-                <ExternalLinkIcon className="h-3 w-3" />
+                Authors
+                <Link2 className="h-3 w-3" />
               </Link>
             )}
           </div>

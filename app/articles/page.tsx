@@ -36,7 +36,7 @@ interface Article {
     email: string;
   };
   tags: string[];
-  body: string;
+  BodyComponent: React.FC;
   links: {
     doc: string;
     api: string;
@@ -129,7 +129,7 @@ const ArticlesPage = () => {
             </div>
           </div>
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle aria-label='resize this window' />
         <ResizablePanel defaultSize={78} minSize={65}>
           <div className="container mx-auto">
             <div className="flex gap-2 flex-col mt-20">
@@ -156,7 +156,7 @@ const ArticlesPage = () => {
                     passHref
                     className="flex flex-col gap-2 border border-card-background rounded-md p-4">
                     <div className="bg-muted rounded-md aspect-video mb-2">
-                      <img src={article.image} alt="" className='aspect-video object-cover' />
+                      <img src={article.image} alt="" loading='lazy' className='aspect-video object-cover' />
                     </div>
                     <div className='w-full flex justify-between'>
                       <h3 className="text-xl tracking-tight">{article.title}</h3>
