@@ -21,14 +21,12 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Header } from '@/components/Header';
-
-interface ArticleLinks {
-  doc: string;
-  api: string;
-}
+import { Link } from 'lucide-react';
+import NextLink from 'next/link';
 
 interface Article {
   title: string;
+  path: string;
   description: string;
   image: string;
   date_created: string;
@@ -55,7 +53,10 @@ const ArticlesPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const allArticles: Article[] = Object.values(articles[selectedLanguage] || {});
+  // Combine articles from all languages when "all" is selected
+  const allArticles: Article[] = selectedLanguage === 'all'
+    ? Object.values(articles).flatMap(langArticles => Object.values(langArticles))
+    : Object.values(articles[selectedLanguage] || {});
 
   const tags = Array.from(new Set(allArticles.flatMap(article => article.tags)));
 
@@ -149,7 +150,11 @@ const ArticlesPage = () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredArticles.map((article, index) => (
-                  <div className="flex flex-col gap-2 border border-card-background rounded-md p-4" key={index}>
+                  <NextLink
+                    href={`/articles/${article.path}`}
+                    key={index}
+                    passHref
+                    className="flex flex-col gap-2 border border-card-background rounded-md p-4">
                     <div className="bg-muted rounded-md aspect-video mb-2">
                       <img src={article.image} alt="" className='aspect-video object-cover' />
                     </div>
@@ -164,7 +169,7 @@ const ArticlesPage = () => {
                       <span>{article.author.name}</span>
                       <span>{article.views} views</span>
                     </div>
-                  </div>
+                  </NextLink>
                 ))}
               </div>
             )}

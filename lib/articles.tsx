@@ -1,16 +1,16 @@
-
 interface Article {
   title: string;
+  path : string;
   description: string;
-  image: string; // Nouvelle propriété pour l'image
-  date_created: string; // Nouvelle propriété pour la date de création en timestamp
-  views: number; // Nouvelle propriété pour le nombre de vues
-  author: { // Nouvelle propriété pour l'auteur
+  image: string;
+  date_created: string;
+  views: number;
+  author: {
     name: string;
     email: string;
   };
-  tags: string[]; // Nouvelle propriété pour les tags
-  body: string;
+  tags: string[];
+  BodyComponent: React.FC;
   links: {
     doc: string;
     api: string;
@@ -23,10 +23,14 @@ interface Articles {
   };
 }
 
+import MeltingOfIceCapsBody from '@/components/articles/MeltingOfIceCapsBody';
+import LossOfBiodiversityBody from '@/components/articles/LossOfBiodiversityBody';
+
 export const articles: Articles = {
   en: {
     "melting-of-ice-caps": {
       title: "Melting of Ice Caps",
+      path: "/en/melting-of-ice-caps",
       description: "The effects and consequences of ice cap melting.",
       image: "https://images.unsplash.com/photo-1720719625643-999bfcc8228f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       date_created: "1710384000", // Timestamp for July 13, 2024
@@ -36,18 +40,7 @@ export const articles: Articles = {
         email: "alice.johnson@example.com"
       },
       tags: ["Climat", "Environnement", "Glaces", "Changements Climatiques"],
-      body: `
-        <h1>Melting of Ice Caps</h1>
-        <h2>Data on Ice Melting</h2>
-        <p>The melting of ice caps has accelerated over the past decades. Current statistics show a significant reduction in ice volume, contributing to rising sea levels and disrupting marine ecosystems.</p>
-        <h2>Consequences of Ice Melting</h2>
-        <p>Environmental impacts include habitat loss for polar species and increased coastal erosion. Populations living in low-lying areas face heightened risks of flooding and displacement.</p>
-        <h2>Factors Contributing to Ice Melting</h2>
-        <p>Climate change, driven by increased greenhouse gas emissions, is the primary factor. Human activities such as deforestation and pollution also play a role.</p>
-        <h2>Strategies to Mitigate Ice Melting</h2>
-        <p>Mitigation strategies include reducing carbon emissions, enhancing renewable energy adoption, and protecting natural carbon sinks like forests.</p>
-        <Headers/>
-      `,
+      BodyComponent: MeltingOfIceCapsBody,
       links: {
         doc: "https://example.com/en/melting-of-ice-caps-doc",
         api: "https://example.com/en/melting-of-ice-caps-api",
@@ -55,6 +48,7 @@ export const articles: Articles = {
     },
     "loss-of-biodiversity": {
       title: "Loss of Biodiversity",
+      path: "/en/loss-of-biodiversity",
       description: "The global impact of biodiversity loss.",
       image: "https://images.unsplash.com/photo-1720440906281-b4367a242a86?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       date_created: "1710384000", // Timestamp for July 13, 2024
@@ -64,19 +58,7 @@ export const articles: Articles = {
         email: "alice.johnson@example.com"
       },
       tags: ["Climat", "Environnement", "Glaces","trigonometry", "Changements Climatiques"],
-      body: `
-        <h1>Loss of Biodiversity</h1>
-        <h2>Global Impact of Biodiversity Loss</h2>
-        <p>Biodiversity loss affects ecosystems and human well-being. Species extinction rates are now hundreds of times higher than natural rates.</p>
-        <h2>Data on Biodiversity Loss</h2>
-        <p>Data shows drastic declines in wildlife populations, with significant impacts on ecosystem services such as pollination and water purification.</p>
-        <h2>Ecological and Economic Consequences</h2>
-        <p>Ecological impacts include ecosystem imbalance and loss of species. Economically, biodiversity loss affects agriculture, fisheries, and tourism.</p>
-        <h2>Factors Contributing to Biodiversity Loss</h2>
-        <p>Habitat destruction, climate change, pollution, and overexploitation are major contributors.</p>
-        <h2>Solutions for Biodiversity Conservation</h2>
-        <p>Conservation strategies include protected areas, sustainable resource management, and restoration projects.</p>
-      `,
+      BodyComponent: LossOfBiodiversityBody,
       links: {
         doc: "https://example.com/en/loss-of-biodiversity-doc",
         api: "https://example.com/en/loss-of-biodiversity-api",
@@ -84,6 +66,7 @@ export const articles: Articles = {
     },
     "world-hunger": {
       title: "World Hunger",
+      path: "/en/world-hunger",
       description: "Global food security and climate change.",
       image: "https://images.unsplash.com/photo-1719742882445-8a22be4a2653?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       date_created: "1710384000", // Timestamp for July 13, 2024
