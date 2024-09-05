@@ -69,7 +69,7 @@ export default function DocPage({ params }: DocPageProps) {
   const BodyComponent = doc.BodyComponent;
 
   return (
-    <div className="relative dark:prose-invert prose w-full min-w-full py-6 lg:gap-10 lg:py-8 flex">
+    <div className="relative prose dark:prose-invert w-full min-w-full py-6 lg:gap-10 lg:py-8 flex">
       <div className="mx-auto w-full min-w-0">
         <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
           <div className="truncate"><Link href="/articles">Articles</Link></div>
@@ -121,7 +121,7 @@ export default function DocPage({ params }: DocPageProps) {
           </div>
         </div>
       ) : (
-        <div>No Table of Contents available</div> 
+        <div className="hidden text-sm xl:block">No Table of Contents available</div> 
       )}
     </div>
   );

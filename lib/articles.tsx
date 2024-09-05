@@ -27,7 +27,7 @@ import MeltingOfIceCaps from '@/components/articles/en/MeltingOfIceCaps';
 import LossOfBiodiversity from '@/components/articles/en/LossOfBiodiversity';
 import WorldHunger from '@/components/articles/en/WorldHunger';
 import ClimateTypes from '@/components/articles/en/ClimateTypes';
-import CO2Emissions from '@/components/articles/en/CO2Emmisions';
+import CO2Emissions from '@/components/articles/en/CO2Emissions';
 import DroughtInAfrica from '@/components/articles/en/DroughtInAfrica';
 
 export const articles: Articles = {
