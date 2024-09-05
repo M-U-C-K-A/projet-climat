@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export const Article = () => (
     <div className="w-full">
@@ -18,7 +19,7 @@ export const Article = () => (
                     </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div className="flex flex-col gap-2">
+                    <Link href="/articles/en/melting-of-ice-caps" className="flex flex-col gap-2">
                         <div className="bg-muted rounded-md aspect-video mb-2">
                             <img src="/ice.jpg" alt="melting of ice caps" className="w-full aspect-video object-cover" />
                         </div>
@@ -28,8 +29,8 @@ export const Article = () => (
                             consequences on the environment and populations,
                             contributing factors, and strategies for mitigation.
                         </p>
-                    </div>
-                    <div className="flex flex-col gap-2">
+                    </Link>
+                    <Link href="/articles/en/loss-of-biodiversity" className="flex flex-col gap-2">
                         <div className="bg-muted rounded-md aspect-video mb-2">
 
                             <img src="/biodiversity.jpg" alt="Loss of Biodiversity" className="w-full aspect-video object-cover" />
@@ -40,8 +41,10 @@ export const Article = () => (
                             ecological and economic repercussions, causes,
                             and solutions for conservation and restoration.
                         </p>
-                    </div>
-                    <div className="flex flex-col gap-2">
+                    </Link>
+
+                    <Link href="/articles/en/world-hunger" className="flex flex-col gap-2">
+
                         <div className="bg-muted rounded-md aspect-video mb-2">
 
                             <img src="/hunger.jpg" alt="World Hunger" className="w-full aspect-video object-cover" />
@@ -51,8 +54,9 @@ export const Article = () => (
                             Statistics on global hunger, effects of climate change,
                             underlying causes, and initiatives to enhance food security.
                         </p>
-                    </div>
-                    <div className="flex flex-col gap-2">
+                    </Link>
+
+                    <Link href="/articles/en/climate-types" className="flex flex-col gap-2">
                         <div className="bg-muted rounded-md aspect-video mb-2">
                             <img src="/climat.jpg" alt="Climate Types" className="w-full aspect-video object-cover" />
                         </div>
@@ -61,8 +65,9 @@ export const Article = () => (
                             Characteristics of climate types, impact of climate change,
                             and necessary adaptations.
                         </p>
-                    </div>
-                    <div className="flex flex-col gap-2">
+                    </Link>
+
+                    <Link href="/articles/en/co2-emissions" className="flex flex-col gap-2">
                         <div className="bg-muted rounded-md aspect-video mb-2">
                             <img src="/co2.jpg" alt="CO₂ Emissions" className="w-full aspect-video object-cover" />
                         </div>
@@ -70,8 +75,9 @@ export const Article = () => (
                         <p className="text-muted-foreground text-base">
                             Global emission trends, impact of emerging economies, key sectors, and strategies for reduction.
                         </p>
-                    </div>
-                    <div className="flex flex-col gap-2">
+                    </Link>
+
+                    <Link href="/articles/en/drought-in-africa" className="flex flex-col gap-2">
                         <div className="bg-muted rounded-md aspect-video mb-2">
                             <img src="/drought.jpg" alt="Drought in Africa" className="w-full aspect-video object-cover" />
                         </div>
@@ -80,9 +86,9 @@ export const Article = () => (
                             Prevalence, consequences, climate factors,
                             and measures to enhance resilience in African communities.
                         </p>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>
-    </div>
+    </div >
 );
